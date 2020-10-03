@@ -1,0 +1,79 @@
+import java.util.*;
+
+public class HelloWorld{
+
+     static HashMap<ListNode, Integer> map = new HashMap();
+     public static void main(String []args){
+         
+         Scanner sc = new Scanner(System.in);
+         int rootval = sc.nextInt();
+         ListNode root = new ListNode(rootval);
+         
+        Queue<ListNode> q = new LinkedList();
+        q.add(root);
+        
+        while(sc.hasNextInt()){
+            ListNode temp = q.remove();
+            int val  = sc.nextInt();
+            if(val != -1){
+                temp.left = new ListNode(val);
+                q.add(temp.left);
+            }
+            
+            val  = sc.nextInt();
+            if(val != -1){
+                temp.right = new ListNode(val);
+                q.add(temp.right);
+            }
+        }
+        System.out.println(tsp(root));
+        
+     }
+     
+     public static class ListNode{
+         int val;
+         ListNode left;
+         ListNode right;
+         
+         public ListNode(int v){
+             val = v;
+             left = null;
+             right = null;
+         }
+     }
+     
+     public static int tsp(ListNode root){
+         if(root == null)   return 0;
+        //  System.out.println(root.val);
+         
+         if(map.containsKey(root))
+            return map.get(root);
+         
+         int max1 = 0;
+         if(root.left != null) 
+            max1 = tsp(root.left.left) + tsp(root.left.right);
+
+         int max2 = 0;
+         if(root.right != null)
+            max2 = tsp(root.right.left) + tsp(root.right.right);
+        
+         int ret =  Math.max(max1 + max2 + root.val, tsp(root.left) + tsp(root.right));
+         map.put(root, ret);
+         return ret;
+     }
+}
+
+// 7 6 9 8 2 3 1 1 3 -1 -1 -1 -1 -1 1
+// 1 -1 3 1 4 4 -1
+
+
+
+
+
+
+
+
+
+
+
+
