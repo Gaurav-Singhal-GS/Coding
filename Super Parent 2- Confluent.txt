@@ -1,0 +1,101 @@
+import java.util.*;
+
+public class HelloWorld{
+
+        public static void main(String []args){
+         
+            Scanner sc = new Scanner(System.in);
+            ArrayList<String> p = new ArrayList();
+            ArrayList<String> c = new ArrayList();
+            
+            int n1 = sc.nextInt();
+            for(int i = 0; i < n1; i++)
+                p.add(sc.next());
+                
+            int n2 = sc.nextInt();
+            for(int i = 0; i < n2; i++)
+                c.add(sc.next());
+
+            String combined = "";
+            
+            
+            for(int i = 0; i < n2; i++){
+                char tempArray[] = c.get(i).toCharArray();
+                Arrays.sort(tempArray); 
+                String sorted = new String(tempArray);
+                StringBuilder str = new StringBuilder();
+                
+                int ptr1 = 0;
+                int ptr2 = 0;
+                
+                while(ptr1 < combined.length() && ptr2 < sorted.length()){
+                    if(combined.charAt(ptr1) == sorted.charAt(ptr2)){
+                        str.append(combined.charAt(ptr1));
+                        ptr1++;
+                        ptr2++;
+                    }
+                    else if(combined.charAt(ptr1) < sorted.charAt(ptr2)){
+                        str.append(combined.charAt(ptr1));
+                        ptr1++;
+                    }
+                    else{
+                        str.append(sorted.charAt(ptr2));
+                        ptr2++;
+                    }
+                }
+                if(ptr1 < combined.length())
+                    str.append(combined.substring(ptr1));
+                else if(ptr2 < sorted.length())
+                    str.append(sorted.substring(ptr2));
+                combined = str.toString();
+            }
+            // System.out.println(combined);
+            
+            for(int i = 0; i < n1; i++){
+                char tempArray[] = p.get(i).toCharArray();
+                Arrays.sort(tempArray); 
+                String sorted = new String(tempArray);
+                // System.out.println(sorted);
+                
+                int ptr1 = 0;
+                int ptr2 = 0;
+                int count = 0;
+                while(ptr1 < combined.length() && ptr2 < sorted.length()){
+                    if(combined.charAt(ptr1) == sorted.charAt(ptr2)){
+                        ptr1++;
+                        ptr2++;
+                        count++;
+                    }
+                    else if(combined.charAt(ptr1) < sorted.charAt(ptr2))
+                        ptr1++;
+                    else
+                        ptr2++;
+                }
+                if(count == combined.length())
+                    System.out.println(p.get(i));
+            }
+        }
+}
+
+
+// 4
+// hiroshtima
+// hitler
+// honolulu
+// hismanic
+// 4
+// hii
+// mah
+// his
+// hit
+
+
+
+
+
+
+
+
+
+
+
