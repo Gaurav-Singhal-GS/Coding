@@ -1,5 +1,6 @@
 /* IMPORTANT: Multiple classes and nested static classes are supported */
 
+/*https://www.hackerearth.com/practice/data-structures/arrays/1-d/practice-problems/algorithm/the-code-generator-9d3f9afa/submissions/*/
 
 //imports for BufferedReader
 import java.io.BufferedReader;
@@ -32,6 +33,9 @@ class TestClass {
 
         // Write your code here
 
+        /*Calculates the number of strings of Length L such that no ubstring of 11 is present
+        https://www.geeksforgeeks.org/count-number-binary-strings-without-consecutive-1s/
+        */
         
         arr[0] = 1;
         arr[1] = 2;
