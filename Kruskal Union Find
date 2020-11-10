@@ -1,0 +1,88 @@
+/*Kruskal Union Find*/
+
+class Solution {
+    
+    HashMap<Integer, Node> map = new HashMap();
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+        
+        for(int i = 0; i < n; i++)
+            makeSet(i);
+        
+        ArrayList<edge> e = new ArrayList();
+        for(int i= 0; i < n; i++){
+            e.add(new edge(flights[i][0], flights[i][1], flights[i][2]));
+        }
+        
+        Collections.sort(e);
+        
+        int cost = 0;
+        for(int i = 0; i < n; i++){
+            edge temp = e.get(i);
+            int val = union(temp.v1, temp.v2);
+            System.out.println(temp.v1 + " " + temp.v2 + " " + temp.w + " " + val);
+            
+            if(val!= -1){
+                cost += temp.w;
+            }
+        }
+        
+        return cost;
+    }
+    
+    public void makeSet(int n){
+        Node node = new Node();
+        node.data = n;
+        node.parent = node;
+        node.rank = 0;
+        map.put(n , node);
+    }
+    
+    public Node findSet(Node n){
+        if(n.parent == n){
+            return n;
+        }
+        n.parent = findSet(n.parent);
+        return n.parent;
+    }
+    
+    public int union(int a, int b){
+        Node n1 = findSet(map.get(a));
+        Node n2 = findSet(map.get(b));
+        
+        if(n1 == n2){
+            return -1; // Already in same set
+        }
+        
+        if(n1.rank >= n2.rank){
+            n2.parent = n1;
+            n1.rank = (n1.rank == n2.rank)? n1.rank + 1: n1.rank;
+        }
+        else{
+            n1.parent =n2;
+        }
+        return 1;
+    }
+    
+}
+
+class Node{
+    int data;
+    Node parent;
+    int rank;
+}
+
+class edge implements Comparable<edge>{
+    int v1;
+    int v2;
+    int w;
+    
+    public edge(int v11, int v22, int w1){
+        v1 = v11;
+        v2 = v22;
+        w = w1;
+    }
+    
+    public int compareTo(edge e){
+        return this.w - e.w;
+    }
+}
